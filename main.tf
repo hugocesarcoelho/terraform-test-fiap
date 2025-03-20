@@ -1,10 +1,8 @@
-# Generate a random password for MySQL
 resource "random_password" "db_password" {
   length           = 16
   special          = false
 }
 
-# Store the password in AWS Secrets Manager (Optional, but more secure)
 resource "aws_secretsmanager_secret" "db_secret" {
   name = "mysql-rds-password"
 }
@@ -14,7 +12,6 @@ resource "aws_secretsmanager_secret_version" "db_secret_version" {
   secret_string = random_password.db_password.result
 }
 
-# Create a security group for RDS
 resource "aws_security_group" "rds-sg" {
   name = "${random_pet.sg.id}-rds-sg"
 
@@ -33,7 +30,6 @@ resource "aws_security_group" "rds-sg" {
   }
 }
 
-# Create the RDS MySQL Database
 resource "aws_db_instance" "mysql" {
   identifier             = "fiap-mysql-db"
   engine                 = "mysql"
@@ -53,7 +49,6 @@ resource "aws_db_instance" "mysql" {
   }
 }
 
-# Output the RDS Endpoint
 output "rds_endpoint" {
   value = aws_db_instance.mysql.endpoint
 }
