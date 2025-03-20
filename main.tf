@@ -1,6 +1,6 @@
 resource "random_password" "db_password" {
-  length           = 16
-  special          = false
+  length  = 16
+  special = false
 }
 
 resource "aws_secretsmanager_secret" "db_secret" {
@@ -37,9 +37,9 @@ resource "aws_db_instance" "mysql" {
   instance_class         = "db.t3.micro"
   allocated_storage      = 20
   storage_type           = "gp2"
-  username              = "admin"
-  password              = random_password.db_password.result
-  db_name               = "fiapdb"
+  username               = "admin"
+  password               = random_password.db_password.result
+  db_name                = "fiapdb"
   skip_final_snapshot    = true
   publicly_accessible    = true
   vpc_security_group_ids = [aws_security_group.rds-sg.id]
