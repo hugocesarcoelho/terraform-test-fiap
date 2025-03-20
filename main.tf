@@ -1,7 +1,7 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 # Fiap Pos tech
- 
+
 terraform {
   required_providers {
     aws = {
